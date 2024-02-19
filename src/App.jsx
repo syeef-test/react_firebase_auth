@@ -1,21 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import "./App.css";
 
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
-import { useAuth } from "./store/auth-context";
+import AuthContext from "./store/auth-context";
+import { useHistory } from "react-router-dom";
 
 function App() {
-  const { token, logout } = useAuth();
+  const authCtx = useContext(AuthContext);
+
+  const isLoggedIn = authCtx.isLoggedIn;
+
+  const history = useHistory();
+
+  const logout = async () => {
+    await authCtx.logout();
+    history.push("/signup");
+  };
+
   return (
     <>
       <Router>
         <div>
           <nav>
             <ul>
-              {!token && (
+              {!isLoggedIn && (
                 <>
                   <li>
                     <Link to="/signup">Signup</Link>
@@ -25,7 +36,7 @@ function App() {
                   </li>
                 </>
               )}
-              {token && (
+              {isLoggedIn && (
                 <>
                   <li>
                     <Link to="/profile">Profile</Link>

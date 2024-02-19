@@ -1,14 +1,15 @@
 import React, { useRef, useState, useContext } from "react";
-import { useAuth } from "../store/auth-context";
+import AuthContext from "../store/auth-context";
 import { useHistory } from "react-router-dom";
 
 function Signin() {
-  const { login } = useAuth();
-  const history = useHistory();
-
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [loading, setLoading] = useState(false);
+
+  const authCtx = useContext(AuthContext);
+
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ function Signin() {
         const data = await response.json();
         console.log(data.idToken);
 
-        login(data.idToken);
+        authCtx.login(data.idToken);
         history.push("/profile");
       }
 
