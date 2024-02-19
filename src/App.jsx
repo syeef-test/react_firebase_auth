@@ -5,26 +5,38 @@ import "./App.css";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
+import { useAuth } from "./store/auth-context";
 
 function App() {
+  const { token, logout } = useAuth();
   return (
     <>
       <Router>
         <div>
           <nav>
             <ul>
-              <li>
-                <Link to="/signup">Signup</Link>
-              </li>
-              <li>
-                <Link to="/signin">Signin</Link>
-              </li>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
+              {!token && (
+                <>
+                  <li>
+                    <Link to="/signup">Signup</Link>
+                  </li>
+                  <li>
+                    <Link to="/signin">Signin</Link>
+                  </li>
+                </>
+              )}
+              {token && (
+                <>
+                  <li>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/logout" onClick={logout}>
+                      Logout
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
 

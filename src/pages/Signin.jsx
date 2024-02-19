@@ -1,6 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
+import { useAuth } from "../store/auth-context";
+import { useHistory } from "react-router-dom";
 
 function Signin() {
+  const { login } = useAuth();
+  const history = useHistory();
+
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -35,6 +40,9 @@ function Signin() {
       } else {
         const data = await response.json();
         console.log(data.idToken);
+
+        login(data.idToken);
+        history.push("/profile");
       }
 
       console.log("User signed in successfully!");
