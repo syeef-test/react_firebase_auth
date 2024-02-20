@@ -17,7 +17,7 @@ function App() {
 
   const logout = async () => {
     await authCtx.logout();
-    history.push("/signup");
+    // history.push("/signup");
   };
 
   return (
