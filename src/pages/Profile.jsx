@@ -40,7 +40,7 @@ function Profile() {
         const data = await response.json();
         console.log(data.idToken);
 
-        authCtx.login(data.idToken);
+        //authCtx.login(data.idToken);
         if (data) {
           alert("Password changed successfully");
         }
