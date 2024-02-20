@@ -43,6 +43,7 @@ function Signin() {
         console.log(data.idToken);
 
         authCtx.login(data.idToken);
+
         history.replace("/profile");
       }
 

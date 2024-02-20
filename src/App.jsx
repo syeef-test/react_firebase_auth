@@ -1,5 +1,11 @@
 import { useContext, useState } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 
 import Signup from "./pages/Signup";
@@ -52,14 +58,26 @@ function App() {
           </nav>
 
           <Switch>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/signin">
-              <Signin />
-            </Route>
-            <Route path="/profile">
-              <Profile />
+            {!authCtx.isLoggedIn && (
+              <>
+                <Route path="/signup">
+                  <Signup />
+                </Route>
+                <Route path="/signin">
+                  <Signin />
+                </Route>
+              </>
+            )}
+            {authCtx.isLoggedIn && (
+              <>
+                <Route path="/profile">
+                  <Profile />
+                </Route>
+              </>
+            )}
+
+            <Route path="*">
+              <Redirect to="/signin" />
             </Route>
           </Switch>
         </div>
