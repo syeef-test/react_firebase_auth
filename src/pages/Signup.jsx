@@ -34,7 +34,7 @@ function Signup() {
         throw new Error(errorData.error.message);
       }
 
-      console.log("User signed up successfully!");
+      alert("User signed up successfully!");
     } catch (error) {
       console.error("Error signing up:", error.message);
       alert(error.message);

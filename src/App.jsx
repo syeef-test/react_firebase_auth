@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,6 +18,7 @@ function App() {
   const authCtx = useContext(AuthContext);
 
   const isLoggedIn = authCtx.isLoggedIn;
+  console.log(isLoggedIn);
 
   const history = useHistory();
 
@@ -58,7 +59,7 @@ function App() {
           </nav>
 
           <Switch>
-            {!authCtx.isLoggedIn && (
+            {!isLoggedIn && (
               <>
                 <Route path="/signup">
                   <Signup />
@@ -68,7 +69,7 @@ function App() {
                 </Route>
               </>
             )}
-            {authCtx.isLoggedIn && (
+            {isLoggedIn && (
               <>
                 <Route path="/profile">
                   <Profile />

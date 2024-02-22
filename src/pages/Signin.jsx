@@ -40,10 +40,11 @@ function Signin() {
         throw new Error(errorData.error.message);
       } else {
         const data = await response.json();
-        console.log(data.idToken);
-
+        // console.log(data.idToken);
+        const expiresInMilliseconds = data.expiresIn;
         authCtx.login(data.idToken);
-
+        // alert(data.expiresIn);
+        alert("Sign In Succesful");
         history.replace("/profile");
       }
 
